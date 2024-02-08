@@ -9,7 +9,7 @@ inputs:
     required: true
     default: 'interopio'
   domain-owner:
-    description: : 'Domain Owner'
+    description: 'Domain Owner'
     required: true
     default: '389653476181'
   region:

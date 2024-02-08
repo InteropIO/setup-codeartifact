@@ -5,7 +5,7 @@ const core = require('@actions/core')
 const main = require('../src/main')
 
 // Mock the GitHub Actions core library
-// const debugMock = jest.spyOn(core, 'debug').mockImplementation()
+const debugMock = jest.spyOn(core, 'debug').mockImplementation()
 const getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
 const setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
 const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
@@ -40,7 +40,10 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
-    // expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
+    expect(debugMock).toHaveBeenNthCalledWith(
+      1,
+      'got CodeArtifact authorization token'
+    )
     // expect(debugMock).toHaveBeenNthCalledWith(
     //   2,
     //   expect.stringMatching(timeRegex)

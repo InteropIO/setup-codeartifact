@@ -60,8 +60,6 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-      - name: debug
-        run: aws --version
       - name: Test Local Action
         id: test-action
         uses: ./

@@ -45260,6 +45260,7 @@ async function run() {
         `Auth Failed: ${response.$metadata.httpStatusCode} (${response.$metadata.requestId})`
       )
     }
+    core.info('got CodeArtifact authorization token')
     core.setOutput('token', authToken)
     core.setSecret(authToken)
   } catch (error) {

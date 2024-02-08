@@ -1,18 +1,29 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'codeartifact-setup'
+description: 'AWS CodeArtifact Setup'
+author: 'InteropIO'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  domain:
+    description: 'Domain'
     required: true
-    default: '1000'
+    default: 'interopio'
+  domain-owner:
+    description: : 'Domain Owner'
+    required: true
+    default: '389653476181'
+  region:
+    description: 'Region'
+    required: true
+    default: 'eu-central-1'
+  duration:
+    description: 'Token expiration in seconds'
+    required: false
+    default: '18000'
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  token:
+    description: 'Auth Token'
 
 runs:
   using: node20

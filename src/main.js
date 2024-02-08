@@ -1,5 +1,5 @@
 const core = require('@actions/core')
-const { wait } = require('./wait')
+const codeArtifact = require('@aws-sdk/client-codeartifact')
 
 /**
  * The main function for the action.
@@ -7,18 +7,30 @@ const { wait } = require('./wait')
  */
 async function run() {
   try {
-    const ms = core.getInput('milliseconds', { required: true })
+    const domain = core.getInput('domain', { required: true })
+    const domainOwner = core.getInput('domain-owner', { required: true })
+    const region = core.getInput('region', { required: true })
+    const duration = core.getInput('duration', { required: false })
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const durationSeconds = parseInt(duration === '' ? '1800' : duration, 10)
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    // const credentials = new
+    const client = new codeArtifact.CodeartifactClient({ region })
+    const authCommand = new codeArtifact.GetAuthorizationTokenCommand({
+      domain,
+      domainOwner,
+      durationSeconds
+    })
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const response = await client.send(authCommand)
+    const authToken = response.authorizationToken
+    if (response.authorizationToken === undefined) {
+      throw Error(
+        `Auth Failed: ${response.$metadata.httpStatusCode} (${response.$metadata.requestId})`
+      )
+    }
+    core.setOutput('token', authToken)
+    core.setSecret(authToken)
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)

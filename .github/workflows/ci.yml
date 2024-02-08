@@ -60,7 +60,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
-
+      - name: debug
+        run: ls -l ~/.aws
       - name: Test Local Action
         id: test-action
         uses: ./

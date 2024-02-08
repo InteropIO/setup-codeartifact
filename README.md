@@ -1,7 +1,7 @@
 # Create a JavaScript Action
 
-[![GitHub Super-Linter](https://github.com/actions/javascript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/javascript-action/actions/workflows/ci.yml/badge.svg)
+[![GitHub Super-Linter](https://github.com/InteropIO/codeartifact-setup/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/InteropIO/codeartifact-setup/actions/workflows/ci.yml/badge.svg)
 
 Use this template to bootstrap the creation of a JavaScript action. :rocket:
 
@@ -59,7 +59,7 @@ need to perform some initial setup steps before you can develop your action.
    ```bash
    $ npm test
 
-   PASS  ./index.test.js
+   PASS  ./index.test.ts
      ✓ throws invalid number (3ms)
      ✓ wait 500 ms (504ms)
      ✓ test runs (95ms)
@@ -85,7 +85,7 @@ contents of this directory with your own code.
 There are a few things to keep in mind when writing your action code:
 
 - Most GitHub Actions toolkit and CI/CD operations are processed asynchronously.
-  In `main.js`, you will see that the action is run in an `async` function.
+  In `main.ts`, you will see that the action is run in an `async` function.
 
   ```javascript
   const core = require('@actions/core')
@@ -195,9 +195,9 @@ steps:
 
   - name: Run my Action
     id: run-action
-    uses: actions/javascript-action@v1 # Commit with the `v1` tag
+    uses: InteropIO/setup-codeartifact@v1 
     with:
-      milliseconds: 1000
+      maven-settings: '[]'
 
   - name: Print Output
     id: output

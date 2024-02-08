@@ -1,20 +1,20 @@
 /**
- * Unit tests for src/wait.js
+ * Unit tests for src/maven.ts
  */
-const { wait } = require('../src/wait')
-const { expect } = require('@jest/globals')
+import { maven } from '../src/maven'
+import { expect } from '@jest/globals'
 
-describe('wait.js', () => {
+describe('maven.ts', () => {
   it('throws an invalid number', async () => {
     const input = parseInt('foo', 10)
     expect(isNaN(input)).toBe(true)
 
-    await expect(wait(input)).rejects.toThrow('milliseconds not a number')
+    await expect(maven(input)).rejects.toThrow('milliseconds not a number')
   })
 
   it('waits with a valid number', async () => {
     const start = new Date()
-    await wait(500)
+    await maven(500)
     const end = new Date()
 
     const delta = Math.abs(end.getTime() - start.getTime())

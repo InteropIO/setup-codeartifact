@@ -5113,7 +5113,7 @@ var import_util_endpoints = __nccwpck_require__(3350);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getRuntimeConfig = void 0;
-const tslib_1 = __nccwpck_require__(9679);
+const tslib_1 = __nccwpck_require__(4351);
 const package_json_1 = tslib_1.__importDefault(__nccwpck_require__(1838));
 const core_1 = __nccwpck_require__(9963);
 const credential_provider_node_1 = __nccwpck_require__(5531);
@@ -6265,7 +6265,7 @@ var import_util_endpoints = __nccwpck_require__(3350);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getRuntimeConfig = void 0;
-const tslib_1 = __nccwpck_require__(9679);
+const tslib_1 = __nccwpck_require__(4351);
 const package_json_1 = tslib_1.__importDefault(__nccwpck_require__(9722));
 const credentialDefaultProvider_1 = __nccwpck_require__(118);
 const core_1 = __nccwpck_require__(9963);
@@ -6987,7 +6987,7 @@ var import_util_endpoints = __nccwpck_require__(3350);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getRuntimeConfig = void 0;
-const tslib_1 = __nccwpck_require__(9679);
+const tslib_1 = __nccwpck_require__(4351);
 const package_json_1 = tslib_1.__importDefault(__nccwpck_require__(1092));
 const core_1 = __nccwpck_require__(9963);
 const util_user_agent_node_1 = __nccwpck_require__(8095);
@@ -8806,7 +8806,7 @@ var decorateDefaultCredentialProvider = /* @__PURE__ */ __name((provider) => (in
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getRuntimeConfig = void 0;
-const tslib_1 = __nccwpck_require__(9679);
+const tslib_1 = __nccwpck_require__(4351);
 const package_json_1 = tslib_1.__importDefault(__nccwpck_require__(7947));
 const credentialDefaultProvider_1 = __nccwpck_require__(4800);
 const core_1 = __nccwpck_require__(9963);
@@ -9393,7 +9393,7 @@ exports.checkUrl = checkUrl;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fromHttp = void 0;
-const tslib_1 = __nccwpck_require__(9679);
+const tslib_1 = __nccwpck_require__(4351);
 const node_http_handler_1 = __nccwpck_require__(258);
 const property_provider_1 = __nccwpck_require__(9721);
 const promises_1 = tslib_1.__importDefault(__nccwpck_require__(3292));
@@ -21927,7 +21927,7 @@ module.exports = toNumber
 
 /***/ }),
 
-/***/ 9679:
+/***/ 4351:
 /***/ ((module) => {
 
 /******************************************************************************
@@ -45226,52 +45226,96 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 1713:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ 7866:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
-const core = __nccwpck_require__(2186)
-const codeArtifact = __nccwpck_require__(2523)
+"use strict";
 
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getToken = void 0;
+const client_codeartifact_1 = __nccwpck_require__(2523);
+async function getToken(client, options) {
+    const durationSeconds = parseInt(options.duration === '' ? '1800' : options.duration, 10);
+    const input = {
+        domain: options.domain,
+        domainOwner: options.domainOwner,
+        durationSeconds
+    };
+    const authCommand = new client_codeartifact_1.GetAuthorizationTokenCommand(input);
+    const response = await client.send(authCommand);
+    const authToken = response.authorizationToken;
+    if (authToken === undefined) {
+        throw Error(`Auth Failed: ${response.$metadata.httpStatusCode} (${response.$metadata.requestId})`);
+    }
+    return authToken;
+}
+exports.getToken = getToken;
+
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const codeartifact = __importStar(__nccwpck_require__(7866));
+const client_codeartifact_1 = __nccwpck_require__(2523);
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
-  try {
-    const domain = core.getInput('domain', { required: true })
-    const domainOwner = core.getInput('domain-owner', { required: true })
-    const region = core.getInput('region', { required: true })
-    const duration = core.getInput('duration', { required: false })
-
-    const durationSeconds = parseInt(duration === '' ? '1800' : duration, 10)
-
-    // const credentials = new
-    const client = new codeArtifact.CodeartifactClient({ region })
-    const authCommand = new codeArtifact.GetAuthorizationTokenCommand({
-      domain,
-      domainOwner,
-      durationSeconds
-    })
-
-    const response = await client.send(authCommand)
-    const authToken = response.authorizationToken
-    if (response.authorizationToken === undefined) {
-      throw Error(
-        `Auth Failed: ${response.$metadata.httpStatusCode} (${response.$metadata.requestId})`
-      )
+    try {
+        const domain = core.getInput('domain', { required: true });
+        const domainOwner = core.getInput('domain-owner', {
+            required: true
+        });
+        const region = core.getInput('region', { required: true });
+        const duration = core.getInput('duration', { required: false });
+        const client = new client_codeartifact_1.CodeartifactClient({ region });
+        const token = await codeartifact.getToken(client, {
+            domain,
+            domainOwner,
+            duration
+        });
+        core.info('got CodeArtifact authorization token');
+        core.setOutput('token', token);
+        core.setSecret(token);
     }
-    core.info('got CodeArtifact authorization token')
-    core.setOutput('token', authToken)
-    core.setSecret(authToken)
-  } catch (error) {
-    // Fail the workflow run if an error occurs
-    core.setFailed(error.message)
-  }
+    catch (error) {
+        // Fail the workflow run if an error occurs
+        if (error instanceof Error)
+            core.setFailed(error.message);
+    }
 }
-
-module.exports = {
-  run
-}
+exports.run = run;
 
 
 /***/ }),
@@ -47214,14 +47258,17 @@ module.exports = JSON.parse('{"name":"@aws-sdk/client-sts","description":"AWS SD
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
+var exports = __webpack_exports__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 /**
  * The entrypoint for the action.
  */
-const { run } = __nccwpck_require__(1713)
-
-run()
+const main_1 = __nccwpck_require__(399);
+(0, main_1.run)();
 
 })();
 

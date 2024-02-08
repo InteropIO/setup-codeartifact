@@ -49,7 +49,12 @@ jobs:
 
   test-action:
     name: GitHub Actions Test
-    runs-on: ubuntu-latest
+    runs-on:
+      - self-hosted
+      - Linux
+      - X64
+      - eks-dev
+      - build
 
     steps:
       - name: Checkout

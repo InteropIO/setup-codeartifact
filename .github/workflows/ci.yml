@@ -67,6 +67,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
+          version: '17'
           overwrite-settings: false
       - name: Print Settings
         id: settings

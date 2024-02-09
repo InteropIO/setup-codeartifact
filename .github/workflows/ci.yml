@@ -60,7 +60,13 @@ jobs:
         uses: ./
         with:
           duration: 900
-
+          maven-settings: '{"repositories": ["maven-release", "maven-snapshot"], "pluginRepositories": ["maven-release"], servers: ["codeartifact"]}'
       - name: Print Output
         id: output
         run: echo "${{ steps.test-action.outputs.token }}"
+      - uses: actions/setup-java@v4
+        with:
+          override-settings: false
+      - name: Print Settings
+        id: settings
+        run: cat %/.m2/settings.xml

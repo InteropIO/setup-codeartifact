@@ -24,6 +24,9 @@ inputs:
     description: 'Token expiration in seconds'
     required: false
     default: '18000'
+  maven-settings:
+    description: 'Maven settings'
+    required: false
 
 outputs:
   token:

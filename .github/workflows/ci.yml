@@ -71,4 +71,4 @@ jobs:
           overwrite-settings: false
       - name: Print Settings
         id: settings
-        run: cat %/.m2/settings.xml
+        run: cat ~/.m2/settings.xml

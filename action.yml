@@ -2,6 +2,10 @@ name: 'codeartifact-setup'
 description: 'AWS CodeArtifact Setup'
 author: 'InteropIO'
 
+branding:
+  icon: 'code'
+  color: 'green'
+
 # Define your inputs here.
 inputs:
   domain:

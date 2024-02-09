@@ -10,14 +10,9 @@ permissions:
   contents: read
 
 jobs:
-  test-javascript:
-    name: JavaScript Tests
-    runs-on:
-      - self-hosted
-      - Linux
-      - X64
-      - eks-dev
-      - build
+  test-typescript:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout

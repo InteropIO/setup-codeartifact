@@ -3,7 +3,8 @@
 [![GitHub Super-Linter](https://github.com/InteropIO/setup-codeartifact/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 ![CI](https://github.com/InteropIO/setup-codeartifact/actions/workflows/ci.yml/badge.svg)
 
-InteropIO/setup-codeartifact is Github Action that sets up AWS Codeartifact for use in a workflow.
+InteropIO/setup-codeartifact is GitHub Action that sets up AWS Codeartifact for
+use in a  workflow.
 
 ## Usage
 

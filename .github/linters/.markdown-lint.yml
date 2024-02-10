@@ -2,6 +2,11 @@
 MD004:
   style: dash
 
+# Ignore line length for code blocks
+MD013:
+  code_blocks: false
+  ignore_code_blocks: true
+
 # Ordered list item prefix
 MD029:
   style: one

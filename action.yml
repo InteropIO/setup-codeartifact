@@ -1,18 +1,37 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'setup-codeartifact'
+description: 'AWS CodeArtifact Setup'
+author: 'InteropIO'
+
+branding:
+  icon: 'code'
+  color: 'green'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  domain:
+    description: 'Domain'
     required: true
-    default: '1000'
+    default: 'interopio'
+  domain-owner:
+    description: 'Domain Owner'
+    required: true
+  region:
+    description: 'Region'
+    required: true
+  duration:
+    description: 'Token expiration in seconds'
+    required: false
+    default: '18000'
+  authorization-token:
+    description: 'User Provided Authorization Token. If provided no call to aws is performed'
+    required: false
+  maven-settings:
+    description: 'Maven settings'
+    required: false
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  token:
+    description: 'Auth Token'
 
 runs:
   using: node20

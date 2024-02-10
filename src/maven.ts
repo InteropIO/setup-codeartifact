@@ -18,8 +18,8 @@ export type MavenSettings = {
 
 export type CodeartifactSettings = {
   domain: string
-  domainOwner?: string
-  region?: string
+  domainOwner: string
+  region: string
   token: string
 }
 

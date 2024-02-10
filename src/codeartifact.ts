@@ -4,19 +4,27 @@ import {
 } from '@aws-sdk/client-codeartifact'
 
 export type GetTokenOptions = {
-  domain: string | undefined
+  domain: string
   domainOwner: string
   duration: string
+  authorizationToken?: string
 }
 
 export async function getToken(
   client: CodeartifactClient,
   options: GetTokenOptions
 ): Promise<string> {
+  const userProvidedToken = options.authorizationToken
+  if (userProvidedToken) {
+    return Promise.resolve(userProvidedToken)
+  }
   const durationSeconds = parseInt(
     options.duration === '' ? '1800' : options.duration,
     10
   )
+  if (isNaN(durationSeconds)) {
+    throw new Error('duration is not a number')
+  }
 
   const input = {
     domain: options.domain,

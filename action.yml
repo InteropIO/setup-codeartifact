@@ -22,6 +22,9 @@ inputs:
     description: 'Token expiration in seconds'
     required: false
     default: '18000'
+  authorization-token:
+    description: 'User Provided Authorization Token. If provided no call to aws is performed'
+    required: false
   maven-settings:
     description: 'Maven settings'
     required: false

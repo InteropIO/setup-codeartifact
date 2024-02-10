@@ -19,12 +19,16 @@ export async function run(): Promise<void> {
     })
     const region: string = core.getInput('region', { required: true })
     const duration: string = core.getInput('duration', { required: false })
+    const authorizationToken: string = core.getInput('authorization-token', {
+      required: false
+    })
 
     const client = new CodeartifactClient({ region })
     const token = await codeartifact.getToken(client, {
       domain,
       domainOwner,
-      duration
+      duration,
+      authorizationToken
     })
     core.info('got CodeArtifact authorization token')
     core.setOutput('token', token)

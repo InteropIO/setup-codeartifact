@@ -62,7 +62,7 @@ jobs:
           domain: 'interopio'
           domain-owner: '389653476181'
           region: 'eu-central-1'
-          duration: 900
+          authorization-token: 'my-token' # Do not use this if you have self-hosted runner with AWS credentials
           maven-settings: '{"repositories": ["maven-release", "maven-snapshot"], "pluginRepositories": ["maven-release"], "servers": ["codeartifact"]}'
       - name: Print Output
         id: output

@@ -80865,7 +80865,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getToken = void 0;
 const client_codeartifact_1 = __nccwpck_require__(2523);
 async function getToken(client, options) {
+    const userProvidedToken = options.authorizationToken;
+    if (userProvidedToken) {
+        return Promise.resolve(userProvidedToken);
+    }
     const durationSeconds = parseInt(options.duration === '' ? '1800' : options.duration, 10);
+    if (isNaN(durationSeconds)) {
+        throw new Error('duration is not a number');
+    }
     const input = {
         domain: options.domain,
         domainOwner: options.domainOwner,
@@ -80934,11 +80941,15 @@ async function run() {
         });
         const region = core.getInput('region', { required: true });
         const duration = core.getInput('duration', { required: false });
+        const authorizationToken = core.getInput('authorization-token', {
+            required: false
+        });
         const client = new client_codeartifact_1.CodeartifactClient({ region });
         const token = await codeartifact.getToken(client, {
             domain,
             domainOwner,
-            duration
+            duration,
+            authorizationToken
         });
         core.info('got CodeArtifact authorization token');
         core.setOutput('token', token);

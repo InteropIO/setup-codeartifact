@@ -1,7 +1,7 @@
 # Create a JavaScript Action
 
-[![GitHub Super-Linter](https://github.com/InteropIO/codeartifact-setup/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/InteropIO/codeartifact-setup/actions/workflows/ci.yml/badge.svg)
+[![GitHub Super-Linter](https://github.com/InteropIO/setup-codeartifact/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
+![CI](https://github.com/InteropIO/setup-codeartifact/actions/workflows/ci.yml/badge.svg)
 
 Use this template to bootstrap the creation of a JavaScript action. :rocket:
 
@@ -178,28 +178,25 @@ For example workflow runs, check out the
 
 ## Usage
 
-After testing, you can create version tag(s) that developers can use to
-reference different stable versions of your action. For more information, see
-[Versioning](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-in the GitHub Actions toolkit.
-
-To include the action in a workflow in another repository, you can use the
-`uses` syntax with the `@` symbol to reference a specific branch, tag, or commit
-hash.
+### Maven Example
 
 ```yaml
 steps:
   - name: Checkout
-    id: checkout
     uses: actions/checkout@v4
-
-  - name: Run my Action
-    id: run-action
+  - name: Run Setup Codeartifact
     uses: InteropIO/setup-codeartifact@v1 
     with:
-      maven-settings: '[]'
-
-  - name: Print Output
-    id: output
-    run: echo "${{ steps.run-action.outputs.time }}"
+      domain: '<domain>'
+      domain-owner: "<domain-owner>"
+      region: '<region>'
+      maven-settings: '["repositories":["maven-release", "maven-snapshot"], "pluginRepositories":["maven-release"], "servers": ["codeartifact"]]'
+  - name: Run Setup Java
+    uses: actions/setup-java@v4
+    with:
+      distribution: 'temurin'
+      java-version: '17'
+      overwrite-settings: false
+  - name: Run Maven
+    run: ./mvnw -B clean deploy -DaltSnapshotDeploymentRepository=codeartifact::https://<domain>-<domain-owner>.d.codeartifact.<region>.amazonaws.com/maven/maven-snapshot-local -DaltReleaseDeploymentRepository=codeartifact::https://<domain>-<domain-owner>.d.codeartifact.<region>.amazonaws.com/maven/maven-release-local
 ```

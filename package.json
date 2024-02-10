@@ -1,16 +1,16 @@
 {
-  "name": "codeartifact-setup",
+  "name": "setup-codeartifact",
   "description": "GitHub Action for CodeArtifact",
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "homepage": "https://github.com/InteropIO/codeartifact-setup#readme",
+  "homepage": "https://github.com/InteropIO/setup-codeartifact#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/InteropIO/codeartifact-setup.git"
+    "url": "git+https://github.com/InteropIO/setup-codeartifact.git"
   },
   "bugs": {
-    "url": "https://github.com/InteropIO/codeartifact-setup/issues"
+    "url": "https://github.com/InteropIO/setup-codeartifact/issues"
   },
   "keywords": [
     "setup",

@@ -59,6 +59,9 @@ jobs:
         id: test-action
         uses: ./
         with:
+          domain: 'interopio'
+          domain-owner: '389653476181'
+          region: 'eu-central-1'
           duration: 900
           maven-settings: '{"repositories": ["maven-release", "maven-snapshot"], "pluginRepositories": ["maven-release"], "servers": ["codeartifact"]}'
       - name: Print Output

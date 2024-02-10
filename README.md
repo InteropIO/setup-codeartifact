@@ -15,7 +15,7 @@ steps:
   - name: Checkout
     uses: actions/checkout@v4
   - name: Run Setup Codeartifact
-    uses: InteropIO/setup-codeartifact@v1 
+    uses: InteropIO/setup-codeartifact@v1.1
     with:
       domain: '<domain>'
       domain-owner: "<domain-owner>"

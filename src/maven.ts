@@ -58,7 +58,9 @@ export function settings(
       '@xmlns': 'http://maven.apache.org/SETTINGS/1.2.0',
       '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
       '@xsi:schemaLocation':
-        'http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd'
+        'http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd',
+      profiles: { profile: [{ id: 'aws' }] },
+      activeProfiles: { activeProfile: ['aws'] }
     }
   }
   if (maven.repositories) {
@@ -70,7 +72,7 @@ export function settings(
         return repository
       }
     )
-    xml.settings.repositories = { repository: repositories }
+    xml.settings.profiles.profile[0].repositories = { repository: repositories }
   }
 
   if (maven.pluginRepositories) {
@@ -82,7 +84,9 @@ export function settings(
         return repository
       }
     )
-    xml.settings.pluginRepositories = { pluginRepository: pluginRepositories }
+    xml.settings.profiles.profile[0].pluginRepositories = {
+      pluginRepository: pluginRepositories
+    }
   }
 
   if (maven.servers) {

@@ -81008,7 +81008,9 @@ function settings(codeartifact, maven) {
         settings: {
             '@xmlns': 'http://maven.apache.org/SETTINGS/1.2.0',
             '@xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd'
+            '@xsi:schemaLocation': 'http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd',
+            profiles: { profile: [{ id: 'aws' }] },
+            activeProfiles: { activeProfile: ['aws'] }
         }
     };
     if (maven.repositories) {
@@ -81018,7 +81020,7 @@ function settings(codeartifact, maven) {
             }
             return repository;
         });
-        xml.settings.repositories = { repository: repositories };
+        xml.settings.profiles.profile[0].repositories = { repository: repositories };
     }
     if (maven.pluginRepositories) {
         const pluginRepositories = maven.pluginRepositories.map((repository) => {
@@ -81027,7 +81029,9 @@ function settings(codeartifact, maven) {
             }
             return repository;
         });
-        xml.settings.pluginRepositories = { pluginRepository: pluginRepositories };
+        xml.settings.profiles.profile[0].pluginRepositories = {
+            pluginRepository: pluginRepositories
+        };
     }
     if (maven.servers) {
         const servers = maven.servers.map((server) => {

@@ -6,11 +6,11 @@ import * as main from '../src/main'
 import * as codeartifact from '../src/codeartifact'
 
 // Mock the GitHub Actions core library
-let infoMock: jest.SpyInstance
-let getInputMock: jest.SpyInstance
-let setFailedMock: jest.SpyInstance
-let setOutputMock: jest.SpyInstance
-let getTokenMock: jest.SpyInstance
+let infoMock: jest.SpiedFunction<typeof core.info>
+let getInputMock: jest.SpiedFunction<typeof core.getInput>
+let setFailedMock: jest.SpiedFunction<typeof core.setFailed>
+let setOutputMock: jest.SpiedFunction<typeof core.setOutput>
+let getTokenMock: jest.SpiedFunction<typeof codeartifact.getToken>
 
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
@@ -31,7 +31,7 @@ describe('action', () => {
 
   it('sets the token output', async () => {
     // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string) => {
+    getInputMock.mockImplementation(name => {
       switch (name) {
         case 'domain':
           return 'interopio'
@@ -70,7 +70,7 @@ describe('action', () => {
 
   it('sets a failed status', async () => {
     // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string) => {
+    getInputMock.mockImplementation(name => {
       switch (name) {
         case 'region':
           return 'eu-central-1'
@@ -95,7 +95,7 @@ describe('action', () => {
 
   it('fails if no input is provided', async () => {
     // Set the action's inputs as return values from core.getInput()
-    getInputMock.mockImplementation((name: string) => {
+    getInputMock.mockImplementation(name => {
       switch (name) {
         case 'domain':
         case 'domain-owner':

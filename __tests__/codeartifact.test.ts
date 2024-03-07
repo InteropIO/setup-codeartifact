@@ -5,7 +5,9 @@
 import * as codeartifact from '@aws-sdk/client-codeartifact'
 import { getToken } from '../src/codeartifact'
 
-let sendMock: jest.SpyInstance
+let sendMock: jest.SpiedFunction<
+  typeof codeartifact.CodeartifactClient.prototype.send
+>
 describe('codeartifact', () => {
   beforeEach(() => {
     jest.clearAllMocks()

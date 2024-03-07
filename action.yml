@@ -23,7 +23,9 @@ inputs:
     required: false
     default: '18000'
   authorization-token:
-    description: 'User Provided Authorization Token. If provided no call to aws is performed'
+    description:
+      'User Provided Authorization Token. If provided no call to aws is
+      performed'
     required: false
   maven-settings:
     description: 'Maven settings'

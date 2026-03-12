@@ -13,9 +13,9 @@ use in a workflow.
 ```yaml
 steps:
   - name: Checkout
-    uses: actions/checkout@v4
+    uses: actions/checkout@v6
   - name: Run Setup Codeartifact
-    uses: InteropIO/setup-codeartifact@v1.1
+    uses: InteropIO/setup-codeartifact@v2
     with:
       domain: '<domain>'
       domain-owner: '<domain-owner>'
@@ -24,7 +24,7 @@ steps:
         '["repositories":["maven-release", "maven-snapshot"],
         "pluginRepositories":["maven-release"], "servers": ["codeartifact"]]'
   - name: Run Setup Java
-    uses: actions/setup-java@v4
+    uses: actions/setup-java@v5
     with:
       distribution: 'temurin'
       java-version: '17'
